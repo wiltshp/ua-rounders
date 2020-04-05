@@ -1,4 +1,4 @@
-source 'http://repo.nwie.net:8080/nexus/content/groups/rubygems'
+source 'https://rubygems.org'
 
 gem 'jdbc-sqlite3'
 gem 'cucumber'
