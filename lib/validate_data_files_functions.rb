@@ -14,7 +14,7 @@ def extract_files_from_zip
 end
 
 def create_database_tables
-  @database_handle = sqlite3.connect(':memory')#, :loggers => [Logger.new($stdout)]
+  @database_handle = sqlite3.connect(':memory:')#, :loggers => [Logger.new($stdout)]
 
   @database_handle.drop_table? :raw_data_table
   @database_handle.drop_view :curr_year_raw_data_table, if_exists: true
