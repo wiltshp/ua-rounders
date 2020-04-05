@@ -57,4 +57,5 @@ vendor/cache
 # .rubocop-https?--*
 
 #Ignore Data Files
-data_files
+data_files/raw_data_files
+output.xls
