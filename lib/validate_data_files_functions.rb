@@ -20,21 +20,21 @@ def create_database_tables
   @database_handle.execute("DROP VIEW IF EXISTS `curr_year_raw_data_table`")
   @database_handle.execute("DROP VIEW IF EXISTS `prev_year_raw_data_table`")
 
-  #@database_handle.drop_table? :raw_data_table
-  #@database_handle.drop_view :curr_year_raw_data_table, if_exists: true
-  #@database_handle.drop_view :prev_year_raw_data_table, if_exists: true
+  @database_handle.execute("CREATE TABLE `raw_data_table` (`game_date` date NOT NULL, `venue` varchar(255), `game_on` varchar(255) NOT NULL, `player` varchar(255) NOT NULL, `attend` varchar(255), `eat` varchar(255), `big_cash` varchar(255))")
+  @database_handle.execute("CREATE UNIQUE INDEX `raw_data_table_game_date_player_index` ON `raw_data_table` (`game_date`, `player`)")
+  @database_handle.execute("CREATE INDEX `raw_data_table_game_date_index` ON `raw_data_table` (`game_date`)")
 
-  @database_handle.create_table :raw_data_table do
-    Date :game_date, :null => false
-    String :venue #can be null for instance where a holiday falls on a thursday.
-    String :game_on, :null => false
-    String :player, :null => false
-    String :attend
-    String :eat
-    String :big_cash
-    index [:game_date, :player], :unique => true
-    index :game_date
-  end
+  #@database_handle.create_table :raw_data_table do
+  #  Date :game_date, :null => false
+  #  String :venue #can be null for instance where a holiday falls on a thursday.
+  #  String :game_on, :null => false
+  #  String :player, :null => false
+  #  String :attend
+  #  String :eat
+  #  String :big_cash
+  #  index [:game_date, :player], :unique => true
+  #  index :game_date
+  #end
 
   @raw_data_table = @database_handle[:raw_data_table]
 
