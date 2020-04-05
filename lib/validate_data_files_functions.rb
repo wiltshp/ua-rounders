@@ -16,9 +16,13 @@ end
 def create_database_tables
   @database_handle = SQLite3::Database.open(':memory:')#, :loggers => [Logger.new($stdout)]
 
-  @database_handle.drop_table? :raw_data_table
-  @database_handle.drop_view :curr_year_raw_data_table, if_exists: true
-  @database_handle.drop_view :prev_year_raw_data_table, if_exists: true
+  @database_handle.execute("DROP TABLE IF EXISTS `raw_data_table`")
+  @database_handle.execute("DROP VIEW IF EXISTS `curr_year_raw_data_table`")
+  @database_handle.execute("DROP VIEW IF EXISTS `prev_year_raw_data_table`")
+
+  #@database_handle.drop_table? :raw_data_table
+  #@database_handle.drop_view :curr_year_raw_data_table, if_exists: true
+  #@database_handle.drop_view :prev_year_raw_data_table, if_exists: true
 
   @database_handle.create_table :raw_data_table do
     Date :game_date, :null => false
