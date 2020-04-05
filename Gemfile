@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'jdbc-sqlite3'
+gem 'sqlite3'
 gem 'cucumber'
 gem 'roo'
 gem 'rubyzip'
