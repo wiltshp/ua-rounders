@@ -1,7 +1,7 @@
 puts Time.now
 require 'roo'  #Used for unzipping files
 require 'spreadsheet'
-import 'sqlite3'
+import sqlite3
 require './lib/validate_data_files_functions'
 
 $data_directory = './data_files'
