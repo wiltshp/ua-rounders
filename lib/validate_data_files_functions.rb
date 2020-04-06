@@ -233,8 +233,8 @@ def create_big_cash_count_sheet
                 group by big_cash, game_date)
           group by big_cash
           order by 3 desc, 2 asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:big_cash], row[:cash_count]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2]
       count = count+1
     end
     count = count+1
@@ -263,8 +263,8 @@ def create_big_cash_by_attend_percentage_sheet
                 group by big_cash ) big_host_data
                on big_host_data.big_cash = games_played.player
           order by percentage_big_cash desc, attend_count desc, player asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:player], row[:attend_count], row[:big_cash_count], row[:percentage_big_cash]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2, row[3], row[4]
       count = count+1
     end
     count = count+1
@@ -286,7 +286,7 @@ def create_total_hours_played_sheet
           and game_on = 'Yes'
           group by player
           order by 3 desc, 2 asc"
-    @database_handle.fetch(sql) do |row|
+    @database_handle.execute(sql) do |row|
       dd, hh = row[:hours_played].divmod(24)
       string = ''
       if dd > 0
@@ -299,7 +299,7 @@ def create_total_hours_played_sheet
         string += '%d hours' % [hh]
       end
 
-      sheet.row(count).push row[:status], row[:player], string
+      sheet.row(count).push row[0], row[1], string
       count = count+1
     end
     count = count+1
@@ -322,8 +322,8 @@ def create_responds_least_amount_sheet
                 and attend is null
                 group by player, game_date)
           group by player order by 3 desc, 2 asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:player], row[:not_respond_count]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2]
       count = count+1
     end
     count = count+1
@@ -352,8 +352,8 @@ def create_average_player_count_by_venue_sheet
           where a.game_date = b.game_date
           group by venue
           order by avg_player_count desc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:venue], row[:avg_player_count]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2]
       count = count+1
     end
     count = count+1
@@ -378,8 +378,8 @@ def create_games_played_percentage_sheet
                where game_on = 'No') b,
               (select count(distinct game_date) as total_games
                from #{table_name} ) c"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:total_games], row[:games_had], row[:games_not_had], row[:game_on], row[:game_off]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2], row[3], row[4], row[5]
       count = count+1
     end
     count = count+1
@@ -407,8 +407,8 @@ def create_number_of_games_in_ua_sheet
               (select count(distinct game_date) as total_games
                from #{table_name}
                where game_on = 'Yes') c"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:total_games], row[:games_in_ua], row[:games_not_in_ua], row[:game_ua], row[:game_not_ua]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2], row[3], row[4], row[5]
       count = count+1
     end
     count = count+1
@@ -481,8 +481,8 @@ def create_hoy_fart_sheet
           and game_date in (select game_date from #{table_name} where game_on = 'Yes' and player = 'Hoy' and attend = 'Yes')
           group by player
           order by 4 desc, 2 asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:player], row[:string1], row[:sql_counter], row[:string2]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2], row[3], row[4]
       count = count+1
     end
     count = count+1
