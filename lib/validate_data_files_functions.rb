@@ -45,7 +45,7 @@ def load_and_validate_data
     game_on = source_spreadsheet.row(2)[1]
     abort("#{file_name} contains an invalid game on indicator of #{game_on}") unless ['Yes', 'No'].include?(game_on)
     if game_on == 'Yes'
-      #abort("#{file_name} contains a game on indicator of yes, but no big cash is defined") if source_spreadsheet.row(2)[6].nil?
+      abort("#{file_name} contains a game on indicator of yes, but no big cash is defined") if source_spreadsheet.row(2)[6].nil?
       big_cash = source_spreadsheet.row(2)[6].strip
     else
       big_cash = nil
