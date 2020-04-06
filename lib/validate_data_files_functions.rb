@@ -30,7 +30,7 @@ def create_database_tables
   begin_date = $current_year.prev_year
   end_date = $current_year
   
-  query="CREATE VIEW `curr_year_raw_data_table` AS SELECT * FROM `raw_data_table` WHERE ((`game_date` >= '#{$current_year}') AND (`game_date` < '#{end_date}))"
+  query="CREATE VIEW `curr_year_raw_data_table` AS SELECT * FROM `raw_data_table` WHERE ((`game_date` >= '#{$current_year}') AND (`game_date` < '#{end_date}'))"
   @database_handle.execute(query)
   
   #@database_handle.create_view(:prev_year_raw_data_table, @raw_data_table.where { game_date >= begin_date }.where { game_date < end_date })
