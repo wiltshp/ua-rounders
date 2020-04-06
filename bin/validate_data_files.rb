@@ -29,7 +29,7 @@ create_host_count_sheet
 puts Time.now
 create_big_cash_count_sheet
 puts Time.now
-create_back_to_back_winners
+#create_back_to_back_winners
 puts Time.now
 create_big_cash_by_attend_percentage_sheet
 puts Time.now
