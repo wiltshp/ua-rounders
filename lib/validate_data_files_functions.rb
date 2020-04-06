@@ -134,17 +134,14 @@ def create_attendance_count_sheet
   count = 1
 
   $list_of_tables.each do |table_name|
-    query = "select case '#{table_name}' #{$data_type_string}
+    sql = "select case '#{table_name}' #{$data_type_string}
           player, count(1) as attendance_count
           from #{table_name}
           where attend = 'Yes'
           and game_on = 'Yes'
           group by player
           order by 3 desc, 2 asc"
-    puts(query)
-    @database_handle.execute(query) do |row|
-      puts(row.inspect)
-      #sheet.row(count).push row[:status], row[:player], row[:attendance_count]
+    @database_handle.execute(sql) do |row|
       sheet.row(count).push row[0], row[1], row[2]
       count = count+1
     end
