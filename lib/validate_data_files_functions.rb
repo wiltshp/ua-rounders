@@ -25,6 +25,7 @@ def create_database_tables
   @database_handle.execute("CREATE INDEX `raw_data_table_game_date_index` ON `raw_data_table` (`game_date`)")
   
   query="CREATE VIEW `curr_year_raw_data_table` AS SELECT * FROM `raw_data_table` WHERE (`game_date` >= '",$current_year,"')"
+  query.to_s
   @database_handle.execute(query)
 
 
