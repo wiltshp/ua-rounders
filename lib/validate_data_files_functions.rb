@@ -59,7 +59,7 @@ def load_and_validate_data
       eat = source_spreadsheet.row(row)[2]
       abort("#{file_name} contains an invalid eat indicator of #{eat} for #{name}") unless ['Yes', 'No', nil].include?(eat)
 
-      query="INSERT INTO `raw_data_table` (`game_date`, `venue`, `game_on`, `player`, `attend`, `eat`, `big_cash`) VALUES ('#{date_of_game}','#{host_location}','#{game_on}','#{name}','#{attend}','#{eat}','#{big_cash}')"
+      query="INSERT INTO `raw_data_table` (`game_date`, `venue`, `game_on`, `player`, `attend`, `eat`, `big_cash`) VALUES ('#{date_of_game}','#{host_location}','#{game_on}','#{name}','#{attended}','#{eat}','#{big_cash}')"
       #INSERT INTO `raw_data_table` (`game_date`, `venue`, `game_on`, `player`, `attend`, `eat`, `big_cash`) VALUES ('2018-09-13', 'Tom', 'Yes', 'Tom', 'Yes', 'Yes', 'PT')
       @database_handle.execute(query)
       #@raw_data_table.insert(:game_date => date_of_game, :venue => host_location, :game_on => game_on, :player => name, :attend => attended, :eat => eat, :big_cash => big_cash)
