@@ -98,7 +98,7 @@ def create_raw_data_sheets
   
   query=("SELECT * FROM `raw_data_table`")
   @database_handle.execute(query).each do |row|
-    sheet.row(count).concat row.join("\t") ;
+    sheet.row(count).push row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9];
     count = count + 1
   end
 
