@@ -164,8 +164,8 @@ def create_host_count_sheet
                 group by venue, game_date)
           group by venue
           order by 3 desc, 2 asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:venue], row[:host_count]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1, row[2]
       count = count+1
     end
     count = count+1
@@ -187,8 +187,8 @@ def create_big_cash_count_sheet
                 group by big_cash, game_date)
           group by big_cash
           order by 3 desc, 2 asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:big_cash], row[:cash_count]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2]
       count = count+1
     end
     count = count+1
@@ -210,8 +210,8 @@ def create_big_cash_count_sheet
                 group by big_cash, game_date)
           group by big_cash
           order by 3 desc, 2 asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:big_cash], row[:cash_count]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2]
       count = count+1
     end
     count = count+1
