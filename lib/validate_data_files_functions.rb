@@ -264,7 +264,7 @@ def create_big_cash_by_attend_percentage_sheet
                on big_host_data.big_cash = games_played.player
           order by percentage_big_cash desc, attend_count desc, player asc"
     @database_handle.execute(sql) do |row|
-      sheet.row(count).push row[0], row[1], row[2, row[3], row[4]
+      sheet.row(count).push row[0], row[1], row[2], row[3], row[4]
       count = count+1
     end
     count = count+1
