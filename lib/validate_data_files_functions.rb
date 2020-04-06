@@ -35,7 +35,7 @@ def create_database_tables
 end
 
 def load_and_validate_data
-  valid_hosts = ['Tom','Uncle Mike', 'Eric Kohl', 'PT', 'Hoy', 'Creamy', 'Harrisons', nil]
+  valid_hosts = ['Tom','Uncle Mike', 'Eric Kohl', 'PT', 'Hoy', 'Creamy', 'Harrisons', 'Digital Hummus', nil]
   Dir.glob("#{$data_directory}/raw_data_files/*.xlsx").sort.each do |file_name|
     source_spreadsheet = Roo::Spreadsheet.open(file_name).sheet(0)
     host_location = source_spreadsheet.row(1)[1]
