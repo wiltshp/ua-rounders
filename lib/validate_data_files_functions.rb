@@ -14,7 +14,7 @@ def extract_files_from_zip
 end
 
 def create_database_tables
-  @database_handle = SQLite3::Database.open(':memory:')#, :loggers => [Logger.new($stdout)]
+  @database_handle = SQLite3::Database.open(':memory:'), :loggers => [Logger.new($stdout)]
 
   @database_handle.execute("DROP TABLE IF EXISTS `raw_data_table`")
   @database_handle.execute("DROP VIEW IF EXISTS `curr_year_raw_data_table`")
