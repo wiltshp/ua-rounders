@@ -74,6 +74,7 @@ def load_and_validate_data
 
   @valid_thursdays.each do |day|
     query=("SELECT count(*) AS 'count' FROM `raw_data_table` WHERE (`game_date` = '#{day}') LIMIT 1")
+    puts(@database_handle.execute(query).count)
     abort("Missing Spreadsheet for #{day}") unless @database_handle.execute(query).count < 2
   end
 
