@@ -504,8 +504,8 @@ def create_tom_peed_sheet
           and venue = 'Tom'
           group by player
           order by 4 desc, 2 asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:player], row[:string1], row[:sql_counter], row[:string2]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2], row[3], row[4]
       count = count+1
     end
     count = count+1
@@ -528,8 +528,8 @@ def create_mike_bluh_sheet
           and game_date in (select game_date from #{table_name} where game_on = 'Yes' and player = 'Uncle Mike' and attend = 'Yes')
           group by player
           order by 4 desc, 2 asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:player], row[:string1], row[:sql_counter], row[:string2]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2], row[3], row[4]
       count = count+1
     end
     count = count+1
@@ -554,8 +554,8 @@ julianday((select max(game_date) from #{table_name} where game_on = 'Yes'))/7-ju
           and game_on = 'Yes'
           group by player
           order by 3 asc, 2 asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:player], row[:last_played_date], row[:days_since_last_played], row[:weeks_since_last_played]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2], row[3], row[4]
       count = count+1
     end
     count = count+1
@@ -578,8 +578,8 @@ def create_eat_most_sheet
           and eat = 'Yes'
           group by player
           order by 3 desc, 2 asc"
-    @database_handle.fetch(sql) do |row|
-      sheet.row(count).push row[:status], row[:player], row[:eat_count]
+    @database_handle.execute(sql) do |row|
+      sheet.row(count).push row[0], row[1], row[2]
       count = count+1
     end
     count = count+1
@@ -647,8 +647,8 @@ def create_days_since_last_big_cash
           where game_on = 'Yes'
           group by big_cash
           order by 2 desc, 1 asc"
-  @database_handle.fetch(sql) do |row|
-    sheet.row(count).push row[:big_cash], row[:last_big_cash], row[:days_since_last_big_cash]#, row[:weeks_since_last_played]
+  @database_handle.execute(sql) do |row|
+    sheet.row(count).push row[0], row[1], row[2]#, row[:weeks_since_last_played]
     count = count+1
   end
 
