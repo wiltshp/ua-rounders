@@ -74,14 +74,21 @@ def load_and_validate_data
 
   @valid_thursdays.each do |day|
     query=("SELECT count(*) AS 'count' FROM `raw_data_table` WHERE (`game_date` = '#{day}') LIMIT 1")
-    abort("Missing Spreadsheet for #{day}") unless @database_handle.execute(query).count > 0
+    abort("Missing Spreadsheet for #{day}") unless @database_handle.execute(query).count < 2
   end
 
   names_to_be_changed = {"Greg" => '#Copper', "Old Hummus" => 'Digital Hummus', "Digitial Hummus" => 'Digital Hummus', "Baldo" =>  'Nick Engel'}
   names_to_be_changed.each { |key, value|
-    @raw_data_table.where(:venue => key).update(:venue => value)
-    @raw_data_table.where(:player => key).update(:player => value)
-    @raw_data_table.where(:big_cash => key).update(:big_cash => value)
+    query=("UPDATE `raw_data_table` SET `venue` = '#{key}' WHERE (`venue` = '#{value}')")
+    @database_handle.execute(query)
+    query=("UPDATE `raw_data_table` SET `player` = '#{key}' WHERE (`player` = '#{value}')")
+    @database_handle.execute(query)
+    query=("UPDATE `raw_data_table` SET `big_cash` = '#{key}' WHERE (`big_cash` = '#{value}')")
+    @database_handle.execute(query)
+    
+    #@raw_data_table.where(:venue => key).update(:venue => value)
+    #@raw_data_table.where(:player => key).update(:player => value)
+    #@raw_data_table.where(:big_cash => key).update(:big_cash => value)
   }
 
 end
