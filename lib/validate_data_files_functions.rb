@@ -65,7 +65,7 @@ def load_and_validate_data
 
   end
 
-  first_thur = Date.parse @raw_data_table.min(:game_date)
+  first_thur = Date.parse @database_handle.execute("SELECT min(`game_date`) AS 'min' FROM `raw_data_table` LIMIT 1")
   last_thur = Date.parse @raw_data_table.max(:game_date)
   @valid_thursdays = (first_thur..last_thur).select { |day| day.thursday? }
 
