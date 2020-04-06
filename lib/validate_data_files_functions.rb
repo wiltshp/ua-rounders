@@ -32,9 +32,6 @@ def create_database_tables
   
   query="CREATE VIEW `curr_year_raw_data_table` AS SELECT * FROM `raw_data_table` WHERE ((`game_date` >= '#{$current_year}') AND (`game_date` < '#{end_date}'))"
   @database_handle.execute(query)
-  
-  #@database_handle.create_view(:prev_year_raw_data_table, @raw_data_table.where { game_date >= begin_date }.where { game_date < end_date })
-  #@prev_year_raw_data_table = @database_handle[:prev_year_raw_data_table]
 end
 
 def load_and_validate_data
@@ -62,7 +59,10 @@ def load_and_validate_data
       eat = source_spreadsheet.row(row)[2]
       abort("#{file_name} contains an invalid eat indicator of #{eat} for #{name}") unless ['Yes', 'No', nil].include?(eat)
 
-      @raw_data_table.insert(:game_date => date_of_game, :venue => host_location, :game_on => game_on, :player => name, :attend => attended, :eat => eat, :big_cash => big_cash)
+      query="INSERT INTO `raw_data_table` (`game_date`, `venue`, `game_on`, `player`, `attend`, `eat`, `big_cash`) VALUES ('#{date_of_game}','#{host_location}','#{game_on}','#{name}','#{attend}','#{eat}','#{big_cash}')"
+      #INSERT INTO `raw_data_table` (`game_date`, `venue`, `game_on`, `player`, `attend`, `eat`, `big_cash`) VALUES ('2018-09-13', 'Tom', 'Yes', 'Tom', 'Yes', 'Yes', 'PT')
+      @database_handle.execute(query)
+      #@raw_data_table.insert(:game_date => date_of_game, :venue => host_location, :game_on => game_on, :player => name, :attend => attended, :eat => eat, :big_cash => big_cash)
 
     end
 
