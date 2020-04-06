@@ -98,7 +98,7 @@ def create_raw_data_sheets
   
   query=("SELECT * FROM `raw_data_table`")
   @database_handle.execute(query).each do |row|
-    sheet.row(count).concat row.values_at
+    sheet.row(count).concat row.values
     count = count + 1
   end
 
@@ -110,7 +110,7 @@ def create_raw_data_sheets
 
    query=("SELECT * FROM `prev_year_raw_data_table`")
    @database_handle.execute(query).each do |row|
-    sheet.row(count).concat row.values_at
+    sheet.row(count).concat row.values
     count = count + 1
   end
 
@@ -122,7 +122,7 @@ def create_raw_data_sheets
   
   query=("SELECT * FROM `curr_year_raw_data_table`")
   @database_handle.execute(query).each do |row|
-    sheet.row(count).concat row.values_at
+    sheet.row(count).concat row.values
     count = count + 1
   end
 end
