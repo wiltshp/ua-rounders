@@ -143,8 +143,7 @@ def create_attendance_count_sheet
           order by 3 desc, 2 asc"
     puts(query)
     @database_handle.execute(query) do |row|
-      puts(row)
-      row = row.dup
+      puts(row.inspect)
       sheet.row(count).push row[:status], row[:player], row[:attendance_count]
       count = count+1
     end
