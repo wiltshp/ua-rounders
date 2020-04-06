@@ -594,7 +594,9 @@ def create_back_to_back_winners
   sheet.row(0).push 'Time Frame', 'Start Date', 'End Date', 'Player', 'Number of Weeks'
   count = 1
 
-  data = @raw_data_table.order(:game_date).select_group(:game_date, :big_cash).exclude(big_cash: nil).all
+  query="SELECT `game_date`, `big_cash` FROM `raw_data_table` WHERE (`big_cash` IS NOT NULL) GROUP BY `game_date`, `big_cash` ORDER BY `game_date`"
+  data = @database_handle.execute(query)
+  #data = @raw_data_table.order(:game_date).select_group(:game_date, :big_cash).exclude(big_cash: nil).all
 
   back_to_back_champions = calc_back_to_back_champions(data)
 
