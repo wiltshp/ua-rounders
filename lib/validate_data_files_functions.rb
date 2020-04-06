@@ -45,7 +45,7 @@ def load_and_validate_data
     game_on = source_spreadsheet.row(2)[1]
     abort("#{file_name} contains an invalid game on indicator of #{game_on}") unless ['Yes', 'No'].include?(game_on)
     if game_on == 'Yes'
-      abort("#{file_name} contains a game on indicator of yes, but no big cash is defined") if source_spreadsheet.row(2)[6].nil?
+      #abort("#{file_name} contains a game on indicator of yes, but no big cash is defined") if source_spreadsheet.row(2)[6].nil?
       big_cash = source_spreadsheet.row(2)[6].strip
     else
       big_cash = nil
@@ -60,10 +60,7 @@ def load_and_validate_data
       abort("#{file_name} contains an invalid eat indicator of #{eat} for #{name}") unless ['Yes', 'No', nil].include?(eat)
 
       query="INSERT INTO `raw_data_table` (`game_date`, `venue`, `game_on`, `player`, `attend`, `eat`, `big_cash`) VALUES ('#{date_of_game}','#{host_location}','#{game_on}','#{name}','#{attended}','#{eat}','#{big_cash}')"
-      #INSERT INTO `raw_data_table` (`game_date`, `venue`, `game_on`, `player`, `attend`, `eat`, `big_cash`) VALUES ('2018-09-13', 'Tom', 'Yes', 'Tom', 'Yes', 'Yes', 'PT')
       @database_handle.execute(query)
-      #@raw_data_table.insert(:game_date => date_of_game, :venue => host_location, :game_on => game_on, :player => name, :attend => attended, :eat => eat, :big_cash => big_cash)
-
     end
 
   end
