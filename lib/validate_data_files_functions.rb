@@ -67,7 +67,7 @@ def load_and_validate_data
 
   query=("SELECT min(`game_date`) AS 'min' FROM `raw_data_table` LIMIT 1")
   first_thur = @database_handle.execute(query).to_s
-  puts first_thur
+  puts first_thur.join(', ')
   puts("#{first_thur}")
   
   query=("SELECT max(`game_date`) AS 'max' FROM `raw_data_table` LIMIT 1")
