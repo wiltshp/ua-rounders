@@ -24,7 +24,8 @@ def create_database_tables
   @database_handle.execute("CREATE UNIQUE INDEX `raw_data_table_game_date_player_index` ON `raw_data_table` (`game_date`, `player`)")
   @database_handle.execute("CREATE INDEX `raw_data_table_game_date_index` ON `raw_data_table` (`game_date`)")
   
-  @database_handle.execute("CREATE VIEW `curr_year_raw_data_table` AS SELECT * FROM `raw_data_table` WHERE (`game_date` >= ?)",$current_year)
+  query=("CREATE VIEW `curr_year_raw_data_table` AS SELECT * FROM `raw_data_table` WHERE (`game_date` >= ?)",$current_year) 
+  @database_handle.execute(query)
 
 
   #@database_handle.create_view(:curr_year_raw_data_table, @raw_data_table.where { game_date >= $current_year })
