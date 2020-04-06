@@ -165,7 +165,7 @@ def create_host_count_sheet
           group by venue
           order by 3 desc, 2 asc"
     @database_handle.execute(sql) do |row|
-      sheet.row(count).push row[0], row[1, row[2]
+      sheet.row(count).push row[0], row[1], row[2]
       count = count+1
     end
     count = count+1
