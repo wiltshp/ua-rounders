@@ -287,7 +287,7 @@ def create_total_hours_played_sheet
           group by player
           order by 3 desc, 2 asc"
     @database_handle.execute(sql) do |row|
-      dd, hh = row[:hours_played].divmod(24)
+      dd, hh = row[1].divmod(24)
       string = ''
       if dd > 0
         string += '%d days' % [dd]
