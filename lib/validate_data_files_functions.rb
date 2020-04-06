@@ -107,8 +107,10 @@ def create_raw_data_sheets
   sheet.column(0).default_format = date_format
   sheet.row(0).push 'Date', 'Venue', 'Game On', 'Player', 'Attendance', 'Eat', 'Big Cash'
   count = 1
-  @prev_year_raw_data_table.each do |row|
-    sheet.row(count).concat row.values
+
+   query=("SELECT * FROM `prev_year_raw_data_table`")
+   @database_handle.execute(query).each do |row|
+    sheet.row(count).concat row.values_at
     count = count + 1
   end
 
@@ -117,8 +119,10 @@ def create_raw_data_sheets
   sheet.column(0).default_format = date_format
   sheet.row(0).push 'Date', 'Venue', 'Game On', 'Player', 'Attendance', 'Eat', 'Big Cash'
   count = 1
-  @curr_year_raw_data_table.each do |row|
-    sheet.row(count).concat row.values
+  
+  query=("SELECT * FROM `curr_year_raw_data_table`")
+  @database_handle.execute(query).each do |row|
+    sheet.row(count).concat row.values_at
     count = count + 1
   end
 end
