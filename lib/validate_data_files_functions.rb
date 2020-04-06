@@ -74,7 +74,6 @@ def load_and_validate_data
 
   @valid_thursdays.each do |day|
     query=("SELECT count(*) AS 'count' FROM `raw_data_table` WHERE (`game_date` = '#{day}') LIMIT 1")
-    puts(@database_handle.execute(query).count)
     abort("Missing Spreadsheet for #{day}") if @database_handle.execute(query).count < 1
   end
 
@@ -96,7 +95,9 @@ def create_raw_data_sheets
   sheet.column(0).default_format = date_format
   sheet.row(0).push 'Date', 'Venue', 'Game On', 'Player', 'Attendance', 'Eat', 'Big Cash'
   count = 1
-  @raw_data_table.each do |row|
+  
+  query=("SELECT * FROM `raw_data_table`")
+  @database_handle.execute(query).each do |row|
     sheet.row(count).concat row.values
     count = count + 1
   end
