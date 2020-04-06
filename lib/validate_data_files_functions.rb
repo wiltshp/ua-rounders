@@ -144,7 +144,8 @@ def create_attendance_count_sheet
     puts(query)
     @database_handle.execute(query) do |row|
       puts(row.inspect)
-      sheet.row(count).push row[:status], row[:player], row[:attendance_count]
+      #sheet.row(count).push row[:status], row[:player], row[:attendance_count]
+      sheet.row(count).push row[0], row[1], row[2]
       count = count+1
     end
     count = count+1
