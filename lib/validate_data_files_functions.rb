@@ -616,7 +616,7 @@ def calc_back_to_back_champions(data)
   last_week = weekly_champions.shift
 
   weekly_champions.each do |this_week|
-    if last_week[:big_cash] == this_week[:big_cash]
+    if last_week[1] == this_week[1]
       if this_person_won_on_successive_weeks
         back_to_back_champions.last[:end_date] = this_week[:game_date]
 
