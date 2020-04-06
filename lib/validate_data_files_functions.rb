@@ -24,18 +24,17 @@ def create_database_tables
   @database_handle.execute("CREATE UNIQUE INDEX `raw_data_table_game_date_player_index` ON `raw_data_table` (`game_date`, `player`)")
   @database_handle.execute("CREATE INDEX `raw_data_table_game_date_index` ON `raw_data_table` (`game_date`)")
   
-  query="CREATE VIEW `curr_year_raw_data_table` AS SELECT * FROM `raw_data_table` WHERE (`game_date` >= '#{$current_year}')"
-  #query=query.to_s
+  query="CREATE VIEW `prev_year_raw_data_table` AS SELECT * FROM `raw_data_table` WHERE (`game_date` >= '#{$current_year}')"
   @database_handle.execute(query)
-
-
-  #@database_handle.create_view(:curr_year_raw_data_table, @raw_data_table.where { game_date >= $current_year })
-  #@curr_year_raw_data_table = @database_handle[:curr_year_raw_data_table]
 
   begin_date = $current_year.prev_year
   end_date = $current_year
-  @database_handle.create_view(:prev_year_raw_data_table, @raw_data_table.where { game_date >= begin_date }.where { game_date < end_date })
-  @prev_year_raw_data_table = @database_handle[:prev_year_raw_data_table]
+  
+  query="CREATE VIEW `curr_year_raw_data_table` AS SELECT * FROM `raw_data_table` WHERE ((`game_date` >= '#{$current_year}') AND (`game_date` < '#{end_date}))"
+  @database_handle.execute(query)
+  
+  #@database_handle.create_view(:prev_year_raw_data_table, @raw_data_table.where { game_date >= begin_date }.where { game_date < end_date })
+  #@prev_year_raw_data_table = @database_handle[:prev_year_raw_data_table]
 end
 
 def load_and_validate_data
