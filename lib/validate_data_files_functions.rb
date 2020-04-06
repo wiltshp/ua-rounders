@@ -609,7 +609,7 @@ end
 
 def calc_back_to_back_champions(data)
   puts(data.inspect)
-  weekly_champions = data.sort { |champion_1, champion_2| champion_1[:game_date] <=> champion_2[:game_date] }
+  weekly_champions = data.sort { |champion_1, champion_2| champion_1[0] <=> champion_2[0] }
 
   back_to_back_champions = Array.new
   this_person_won_on_successive_weeks = false
