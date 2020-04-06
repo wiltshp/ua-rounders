@@ -141,6 +141,7 @@ def create_attendance_count_sheet
           and game_on = 'Yes'
           group by player
           order by 3 desc, 2 asc"
+    puts(query)
     @database_handle.execute(query) do |row|
       sheet.row(count).push row[:status], row[:player], row[:attendance_count]
       count = count+1
