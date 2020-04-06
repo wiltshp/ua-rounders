@@ -75,7 +75,7 @@ def load_and_validate_data
   @valid_thursdays.each do |day|
     query=("SELECT count(*) AS 'count' FROM `raw_data_table` WHERE (`game_date` = '#{day}') LIMIT 1")
     puts(@database_handle.execute(query).count)
-    abort("Missing Spreadsheet for #{day}") if @database_handle.execute(query).count < 2
+    abort("Missing Spreadsheet for #{day}") if @database_handle.execute(query).count < 1
   end
 
   names_to_be_changed = {"Greg" => '#Copper', "Old Hummus" => 'Digital Hummus', "Digitial Hummus" => 'Digital Hummus', "Baldo" =>  'Nick Engel'}
@@ -86,10 +86,6 @@ def load_and_validate_data
     @database_handle.execute(query)
     query=("UPDATE `raw_data_table` SET `big_cash` = '#{key}' WHERE (`big_cash` = '#{value}')")
     @database_handle.execute(query)
-    
-    #@raw_data_table.where(:venue => key).update(:venue => value)
-    #@raw_data_table.where(:player => key).update(:player => value)
-    #@raw_data_table.where(:big_cash => key).update(:big_cash => value)
   }
 
 end
